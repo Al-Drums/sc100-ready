@@ -402,4 +402,4 @@ Cloud Security Explorer, agentless scanning y regulatory compliance completo (NI
 | 15-18 | Zona de riesgo — es aproximadamente donde estabas con 679. |
 | <15 | Vuelve al diccionario antes de más preguntas. |
 
-**Preguntas que tocan tus gaps abiertos:** ninguna de estas 25 cubre Azure Files (granularidad de share), AzureBastionSubnet como control NSG ni el tier de GitHub para Dependabot en repos privados. Si quieres, te monto un mini-bloque de 8 preguntas centrado solo en esos tres más el resto del temario de Bastion y DevSecOps.
+**Huecos que este simulacro no cubre:** ninguna de estas 25 preguntas cubre Azure Files (granularidad de share), AzureBastionSubnet como control NSG ni el tier de GitHub para Dependabot en repos privados. Si alguno de esos temas resulta flojo, conviene un mini-bloque adicional centrado solo en esos tres puntos y el resto del temario de Bastion y DevSecOps.

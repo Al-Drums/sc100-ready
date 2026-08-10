@@ -224,7 +224,7 @@ Opciones: *Data Map · Information Protection scanner*
 
 **1 — B.** CMK en el Storage Account del Data Lake.
 🔑 **El pool serverless no tiene almacenamiento propio → no tiene TDE.** Los datos viven en el Data Lake, y ahí se cifra.
-⚠️ **Este es tu fallo recurrente.** Truco: ante "Synapse + cifrado", busca la palabra *Serverless* o *Dedicated*. Serverless → Storage Account. Dedicated → workspace encryption, y **solo al crear el workspace** (recrear si ya existe).
+⚠️ **Este es un error frecuente.** Truco: ante "Synapse + cifrado", busca la palabra *Serverless* o *Dedicated*. Serverless → Storage Account. Dedicated → workspace encryption, y **solo al crear el workspace** (recrear si ya existe).
 
 **2 — B, C, E.** Private Endpoint (principal + SCM) + deshabilitar acceso público + Private DNS Zone.
 🔑 El Private Endpoint da IP privada (inbound), pero **la URL pública sigue respondiendo hasta que deshabilitas el acceso público** — dos acciones distintas. La Private DNS Zone es obligatoria con cualquier Private Endpoint. Y el **SCM/Kudu** debe incluirse o los despliegues desde Pipelines fallan.
@@ -252,7 +252,7 @@ Evaluar situación y alcance → identificar LOB apps caídas → identificar el
 
 **9 — C.** Service principal (enterprise application).
 🔑 El **application object de App1 ya existe en `partner.com`**; no se crea en el tenant consumidor. Lo que le falta a contoso.com es la instancia local: el **service principal**, que se crea al consentir la app multi-tenant.
-⚠️ Tu fallo "sin deber": la clave es *¿en qué tenant estoy y qué me falta ahí?* Consumo app ajena → service principal. Managed identities son para recursos de Azure, no federan apps.
+⚠️ Trampa habitual: la clave es *¿en qué tenant estoy y qué me falta ahí?* Consumo app ajena → service principal. Managed identities son para recursos de Azure, no federan apps.
 
 **10 — C.** Endpoint DLP + DSPM for AI; primero onboarding de dispositivos.
 🔑 Endpoint DLP **bloquea** el envío de contenido sensible a webs de IA desde Windows; DSPM for AI da la **visibilidad**. Ambos exigen que los **dispositivos estén onboarded en Purview** — ese es el primer paso.
