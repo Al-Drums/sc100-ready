@@ -1,6 +1,6 @@
 # Cómo estudié el SC-100 (después de suspenderlo)
 
-El primer intento lo preparé como se prepara cualquier examen técnico: temario, vídeos, apuntes. Saqué 679. El segundo lo preparé de otra forma y saqué 721.
+El primer intento lo preparé como se prepara cualquier examen técnico: temario, vídeos, apuntes. Saqué 679.
 
 Esto es lo que cambié.
 
