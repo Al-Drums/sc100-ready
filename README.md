@@ -12,7 +12,7 @@ No fue a la primera. Suspendí con un **679** (no veas como dolió), cambié de 
 
 - **Base:** ciberseguridad y DevOps sobre AWS. Cero certificaciones de Azure.
 - **Reto:** el SC-100 es de nivel *architect* y asume familiaridad con el ecosistema Microsoft (Entra, Purview, Defender, Sentinel, Azure Policy…).
-- **Conclusión:** se puede, pero el salto no es el temario de seguridad —eso ya lo tenía— sino **el vocabulario de productos de Microsoft y sus fronteras**. Ahí es donde se gana o se pierde el examen.
+- **Conclusión:** se puede, pero el salto no es el temario de seguridad eso. ya lo tenía, sino **el vocabulario de productos de Microsoft y sus fronteras**. Ahí es donde se gana o se pierde el examen.
 
 ---
 
