@@ -48,8 +48,8 @@ Al final el diccionario era más útil que cualquier apunte, porque estaba escri
 Unas 150 preguntas de práctica, con una regla innegociable: **no marcar y pasar**.
 
 Por cada pregunta, escribir:
-- por qué la correcta es correcta,
-- **y por qué cae cada distractor.**
+- Por qué la correcta es correcta,
+- **Y por qué cae cada distractor.**
 
 Si no sabes explicar por qué falla el distractor, no la sabías: la acertaste por eliminación, y eso no se sostiene en el examen real.
 
@@ -87,6 +87,6 @@ Lejos de ser un problema, resultó el mejor ejercicio del proceso: obliga a razo
 
 ## Si vienes de fuera del ecosistema Microsoft
 
-Yo venía de AWS y DevOps, sin ninguna certificación de Azure. El salto real **no es el temario de seguridad** →los principios son los mismos en cualquier nube→ sino **el vocabulario de productos y sus fronteras**.
+Yo venía de AWS, sin ninguna certificación de Azure. El salto **no es el temario de seguridad** → los principios son los mismos en cualquier nube → sino **el vocabulario de productos y sus fronteras**.
 
 Así que si estás en ese punto: no empieces por repasar seguridad. Empieza por construir el mapa de qué hace cada producto de Microsoft y, sobre todo, **dónde acaba cada uno**. Ahí es donde se gana el examen.
