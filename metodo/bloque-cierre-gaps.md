@@ -1,4 +1,6 @@
-# EJEMPLO DE METODOLOGÍA DE ESTUDIO → Después de repasar unas cuantas preguntas y secciones, determiné este bloque de cierre con todos los gaps que tenía en mis estudios, sobre todo después del primer suspenso. Esto puede ayudar a como mejorar y crear un sistema de estudio que se adecúe a tu forma de estudiar. 
+# EJEMPLO DE METODOLOGÍA DE ESTUDIO 
+
+> Después de repasar unas cuantas preguntas y secciones, determiné este bloque de cierre con todos los gaps que tenía en mis estudios, sobre todo después del primer suspenso. Esto puede ayudar a como mejorar y crear un sistema de estudio que se adecúe a tu forma de estudiar. 
 
 # BLOQUE DE CIERRE → Los 3 gaps abiertos
 
