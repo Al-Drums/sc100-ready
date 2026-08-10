@@ -5,6 +5,8 @@ Aprobé el **SC-100: Microsoft Cybersecurity Architect** con **721/1000**, sin t
 No fue a la primera. Suspendí con un **679** (no veas como dolió), cambié de método, y aprobé en el segundo intento. Este repo documenta **el proceso completo**: qué falló, qué cambié, y todo el material que construí por el camino, por si le sirve a alguien que está en el mismo punto en el que yo estaba.
 
 > ⚠️ **Aviso:** esto NO es un dump de preguntas ni un atajo. Es un método de estudio y un mapa de conceptos. El SC-100 es un examen de criterio: premia entender *por qué* una solución encaja, no memorizar respuestas, por eso tienens que saber como funciona cada pequeña parte, porque en ese detalle esta la respuesta correcta.
+
+
 > ⚠️ **Aviso:** estos ejemplos se han creado con diferentes tecnologías de IA como Notebook, Claude y Gemini. Puedes probar a generar tus propios ejemplos añadiendo dentro del contexto de tu sesión enlaces directos a los temas de Learn de Microsoft y usando los documentos que encontrarás dentro de este repositorio.
 
 ---
