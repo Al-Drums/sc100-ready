@@ -1,4 +1,4 @@
-# CASO DE ESTUDIO SC-100 — Fabrikam Industrial
+# CASO DE ESTUDIO SC-100 → Fabrikam Industrial
 
 **Formato real de examen.** En el SC-100 los casos de estudio aparecen al principio y las preguntas se responden **releyendo el escenario**, no de memoria. Léelo entero una vez, luego contesta. Tiempo objetivo: **30 minutos** para las 10 preguntas.
 
@@ -204,7 +204,7 @@ Opciones: *Microsoft Entra ID Protection · Microsoft Defender for Identity · M
 
 ---
 
-**1 — C.** PHS + Entra Cloud Sync para Litware.
+**1 → C.** PHS + Entra Cloud Sync para Litware.
 
 Tres requisitos, tres piezas del razonamiento:
 - **R1** (retirar ADFS, reducir infraestructura on-prem) → descarta A y cualquier opción que mantenga la federación.
@@ -216,7 +216,7 @@ Tres requisitos, tres piezas del razonamiento:
 
 ---
 
-**2 — B.** Entra ID P2.
+**2 → B.** Entra ID P2.
 
 - **R4** (elevación temporal con aprobación) → **PIM** → P2.
 - **R5** (autoservicio, aprobación, revisión trimestral) → **Entitlement Management** + **Access Reviews** → P2.
@@ -226,14 +226,14 @@ Ambos están fuera de P1, así que P2 es el mínimo. ❌ C: E5 aporta Purview, n
 
 ---
 
-**3 — B.** Encryption scopes con CMK por container.
+**3 → B.** Encryption scopes con CMK por container.
 
 Sin encryption scopes, toda la cuenta comparte una única clave: revocarla afectaría a las tres divisiones a la vez, incumpliendo la independencia que pide **R6**.
 ❌ C: funciona, pero es rediseño innecesario existiendo la feature nativa, y choca con **C2**. ❌ D: client-side es la respuesta cuando la clave no puede existir en Azure, que aquí no se pide.
 
 ---
 
-**4 — A + B.** Actualizar a E5 y hacer onboarding de dispositivos en Purview.
+**4 → A + B.** Actualizar a E5 y hacer onboarding de dispositivos en Purview.
 
 - **R7** (auto-labeling) → **E5**. E3 solo da etiquetado manual.
 - **R8** (bloquear subidas a IA de terceros desde portátiles) → **Endpoint DLP**, que exige tanto E5 como el **onboarding del dispositivo** en Purview.
@@ -244,7 +244,7 @@ Sin encryption scopes, toda la cuenta comparte una única clave: revocarla afect
 
 ---
 
-**5 — A + C.**
+**5 → A + C.**
 
 - **R9** (exfiltración sobre HTTPS) → **A**: Firewall **Premium**. Standard filtra por FQDN pero no descifra TLS, así que no ve el contenido.
 - **R10** (sin acceso desde internet, despliegues desde Pipelines) → **C**: Private Endpoints **+ deshabilitar el acceso público** **+ incluir el endpoint SCM**.
@@ -254,14 +254,14 @@ Sin encryption scopes, toda la cuenta comparte una única clave: revocarla afect
 
 ---
 
-**6 — C.** Istio.
+**6 → C.** Istio.
 
 🔑 **mTLS servicio-a-servicio + minimizar esfuerzo administrativo → service mesh gestionado.** Con **C3** (preferir servicios gestionados), el add-on de Istio para AKS refuerza la elección.
 ❌ D: Envoy sabe hacer mTLS, pero configurarlo microservicio a microservicio contradice frontalmente **C2**. ❌ A: Flux es GitOps. ❌ B: Dapr aporta componentes de aplicación, no seguridad de red.
 
 ---
 
-**7 — C.** Azure Arc + Azure Policy.
+**7 → C.** Azure Arc + Azure Policy.
 
 **Azure Policy solo alcanza lo que está en el plano de control de ARM.** Arc es lo que proyecta EC2 y los servidores on-prem dentro de ese plano para poder aplicarles política.
 ❌ B: el conector de AWS da postura CSPM y recomendaciones, pero **no** permite aplicar Azure Policy. ❌ D: Blueprints está deprecado.
@@ -269,7 +269,7 @@ Sin encryption scopes, toda la cuenta comparte una única clave: revocarla afect
 
 ---
 
-**8 —**
+**8 →**
 
 | Requisito | Solución |
 |---|---|
@@ -284,7 +284,7 @@ Sin encryption scopes, toda la cuenta comparte una única clave: revocarla afect
 
 ---
 
-**9 — A.** Habilitar inmutabilidad → bloquear inmutabilidad → configurar MUA con Resource Guard en otro tenant.
+**9 → A.** Habilitar inmutabilidad → bloquear inmutabilidad → configurar MUA con Resource Guard en otro tenant.
 
 Dos protecciones complementarias, no alternativas:
 - **Inmutabilidad bloqueada** impide eliminar backups y acortar la retención. El paso de *habilitar* no basta, porque en ese estado un administrador aún puede deshabilitarla; el **lock** es lo que lo hace irreversible.
@@ -295,7 +295,7 @@ La secuencia lógica: no puedes bloquear lo que no has habilitado, y MUA se conf
 
 ---
 
-**10 — B.** Entra Permissions Management (CIEM).
+**10 → B.** Entra Permissions Management (CIEM).
 
 🔑 **Multinube (Azure + AWS) + identidades sobre-privilegiadas → CIEM**, con el Permission Creep Index como métrica.
 ❌ A: PIM gestiona roles de Entra y Azure con JIT, y **no cubre AWS ni GCP**. ❌ C: Attack Path muestra rutas de ataque, no analiza permisos en profundidad. ❌ D: MDA analiza sesiones SaaS.

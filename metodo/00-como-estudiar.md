@@ -10,7 +10,7 @@ Esto es lo que cambié.
 
 El SC-100 **no pregunta definiciones**. Pregunta cuál de dos servicios que suenan casi igual es el correcto, según una palabra concreta del enunciado.
 
-Sabías perfectamente qué es VNet Integration y qué es un Private Endpoint. Y aun así fallas la pregunta, porque lo que se examina no es la definición: es que **VNet Integration afecta al tráfico saliente y no aísla nada**, mientras que el Private Endpoint afecta al entrante — y que aun poniendo el Private Endpoint, **la app sigue siendo accesible por su URL pública hasta que deshabilitas el acceso público explícitamente**.
+Sabías perfectamente qué es VNet Integration y qué es un Private Endpoint. Y aun así fallas la pregunta, porque lo que se examina no es la definición: es que **VNet Integration afecta al tráfico saliente y no aísla nada**, mientras que el Private Endpoint afecta al entrante → y que aun poniendo el Private Endpoint, **la app sigue siendo accesible por su URL pública hasta que deshabilitas el acceso público explícitamente**.
 
 Eso no se aprende leyendo definiciones. Se aprende chocando contra el escenario.
 
@@ -57,7 +57,7 @@ Si no sabes explicar por qué falla el distractor, no la sabías: la acertaste p
 
 Los bancos de preguntas gratuitos tienen respuestas **mal argumentadas**. Encontré varias con explicaciones que no se sostenían al contrastarlas con Microsoft Learn.
 
-Lejos de ser un problema, resultó el mejor ejercicio del proceso: obliga a razonar en lugar de memorizar, y es exactamente lo que hace un arquitecto de seguridad — no quedarse con la primera respuesta que suena bien. **Contrasta siempre con Learn.**
+Lejos de ser un problema, resultó el mejor ejercicio del proceso: obliga a razonar en lugar de memorizar, y es exactamente lo que hace un arquitecto de seguridad → no quedarse con la primera respuesta que suena bien. **Contrasta siempre con Learn.**
 
 ---
 
@@ -79,7 +79,7 @@ Lejos de ser un problema, resultó el mejor ejercicio del proceso: obliga a razo
 
 - **Lee el enunciado dos veces antes de mirar las opciones.** Subraya mentalmente la palabra limitante.
 - **Si dudas entre dos**, vuelve al requisito: casi siempre hay un *"minimizando..."* que descarta una.
-- **Microsoft Learn está disponible durante el examen.** No para estudiar sobre la marcha —no da tiempo— sino para verificar un dato concreto. Practica la navegación antes.
+- **Microsoft Learn está disponible durante el examen.** No para estudiar sobre la marcha →no da tiempo→ sino para verificar un dato concreto. Practica la navegación antes.
 - **Case study:** localiza la cláusula que decide antes de leer opciones.
 - **No te atasques.** Marca para revisión y sigue; en los HOTSPOT cada hueco puntúa por separado.
 
@@ -87,6 +87,6 @@ Lejos de ser un problema, resultó el mejor ejercicio del proceso: obliga a razo
 
 ## Si vienes de fuera del ecosistema Microsoft
 
-Yo venía de AWS y DevOps, sin ninguna certificación de Azure. El salto real **no es el temario de seguridad** —los principios son los mismos en cualquier nube— sino **el vocabulario de productos y sus fronteras**.
+Yo venía de AWS y DevOps, sin ninguna certificación de Azure. El salto real **no es el temario de seguridad** →los principios son los mismos en cualquier nube→ sino **el vocabulario de productos y sus fronteras**.
 
 Así que si estás en ese punto: no empieces por repasar seguridad. Empieza por construir el mapa de qué hace cada producto de Microsoft y, sobre todo, **dónde acaba cada uno**. Ahí es donde se gana el examen.

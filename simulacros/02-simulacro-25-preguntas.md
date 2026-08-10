@@ -1,4 +1,4 @@
-# SIMULACRO SC-100 #2 — 25 preguntas
+# SIMULACRO SC-100 #2 → 25 preguntas
 
 **Tiempo objetivo: 50 minutos.**
 No mires el solucionario hasta terminar. Apunta también las que dudes aunque aciertes.
@@ -306,37 +306,37 @@ No mires el solucionario hasta terminar. Apunta también las que dudes aunque ac
 
 ---
 
-**1 — C.** Conditional Access con condición de ubicación.
+**1 → C.** Conditional Access con condición de ubicación.
 Se crea una **named location** por país y se bloquea en la política. Es control de acceso **determinista**: la regla se cumple o no.
 ❌ B y D: ID Protection reacciona a **riesgo calculado** (viaje imposible, IP anónima, credenciales filtradas). "Esta lista de países" no es riesgo, es política. ❌ A: las activity policies de MDA actúan **después** del login, dentro de la sesión. ❌ E: el estado del dispositivo no es la ubicación.
 🔑 **Regla que resuelve todo este bloque:** *¿el requisito es una condición conocida de antemano (país, dispositivo, app, IP) o una señal de riesgo calculada por Microsoft?* Lo primero → Conditional Access. Lo segundo → ID Protection.
 
-**2 — A + C.** Conditional Access + Defender for Cloud Apps.
+**2 → A + C.** Conditional Access + Defender for Cloud Apps.
 Requiere **las dos** piezas: la política de CA enruta la sesión hacia el proxy inverso (Conditional Access App Control) usando el estado del dispositivo como condición, y la **session policy** de MDA es la que bloquea efectivamente la descarga permitiendo la visualización.
 ❌ B: las etiquetas protegen el archivo, no la acción de descarga en dispositivos no gestionados. ❌ D: App Proxy publica apps on-prem. ❌ E: las MAM protegen apps móviles, no la sesión de navegador en un equipo ajeno.
 🔑 **"Bloquear descarga / copiar / imprimir en sesión" + "unmanaged devices" → siempre CA + MDA session policy.** Una sola de las dos nunca es la respuesta completa.
 
-**3 — B.** Entra ID Protection.
+**3 → B.** Entra ID Protection.
 Viaje imposible es una detección de **riesgo de inicio de sesión** en el momento del login cloud.
 ❌ C: MDA detecta también viaje imposible, pero en el contexto de sesiones SaaS; cuando la pregunta describe el **sign-in** a Entra, la respuesta canónica del examen es ID Protection.
 
-**4 — C.** Defender for Cloud Apps.
+**4 → C.** Defender for Cloud Apps.
 🔑 **Post-login, dentro de la app SaaS, comportamiento masivo (mass download, mass delete) → MDA.** Contrasta con la 3: ID Protection es *en el login*, MDA es *después del login*.
 
-**5 — B.** Authentication Strengths.
+**5 → B.** Authentication Strengths.
 🔑 **"phishing-resistant"** o el nombre de un método concreto (FIDO2, Windows Hello, certificado) → Authentication Strengths.
 ❌ C: "requerir MFA" a secas admite SMS o llamada, que no son resistentes al phishing. Es el distractor diseñado. ❌ A: security defaults es todo-o-nada, sin granularidad.
 
-**6 — B.** Continuous Access Evaluation.
+**6 → B.** Continuous Access Evaluation.
 CAE hace que EXO, SPO y Teams reevalúen la sesión ante eventos críticos (cuenta deshabilitada, contraseña restablecida, revocación de token, cambio de ubicación) sin esperar al vencimiento del token.
 ❌ C: sign-in frequency fuerza reautenticación periódica, pero sigue siendo *esperar*, no *casi en tiempo real*.
 
-**7 — A.** 2 → 3 → 1.
+**7 → A.** 2 → 3 → 1.
 Evaluar la situación y el alcance → identificar qué aplicaciones de negocio están caídas → identificar el proceso de recuperación del compromiso.
 🔑 **La lógica es siempre: entender antes de priorizar, priorizar antes de actuar.** No puedes saber qué LOB apps recuperar sin conocer el alcance, ni diseñar la recuperación sin saber qué está caído.
 ⚠️ **Ojo a la trampa de este par de preguntas:** DART tiene dos secuencias distintas y el examen las mezcla. Ver la 8.
 
-**8 — D.** Deshabilitar la sincronización de OneDrive y Exchange ActiveSync.
+**8 → D.** Deshabilitar la sincronización de OneDrive y Exchange ActiveSync.
 🔑 **Contención primero.** El primer paso del plan de *recuperación* es cortar la propagación al cloud.
 
 > **Cuadro de las dos secuencias DART** (memorízalo así, es donde fallaste):
@@ -346,78 +346,78 @@ Evaluar la situación y el alcance → identificar qué aplicaciones de negocio 
 > | 1º | Evaluar situación y alcance | **Deshabilitar OneDrive sync + ActiveSync** |
 > | 2º | Identificar LOB apps no disponibles | Investigar el alcance |
 > | 3º | Identificar proceso de recuperación | Erradicar preservando evidencia |
-> | 4º | — | Recuperar a dispositivos limpios |
+> | 4º | → | Recuperar a dispositivos limpios |
 >
 > Si el enunciado dice **"investigate" / "optimize investigations"** → columna izquierda. Si dice **"recovery plan" / "first step"** → columna derecha. Nunca escanear, restaurar ni llamar a la policía como primer paso.
 
-**9 — B.** MUA con Resource Guard en un tenant distinto.
+**9 → B.** MUA con Resource Guard en un tenant distinto.
 🔑 **"ni siquiera un Global Administrator"** → otro tenant, no otra suscripción.
 ❌ A: soft delete da margen temporal pero no impide la operación. ❌ C: el cifrado protege confidencialidad, no impide el borrado. ❌ D: el PIN es anti-error humano; el atacante con la credencial lo genera igual.
 
-**10 — B.** Hybrid Connections.
+**10 → B.** Hybrid Connections.
 Sin VPN ni ExpressRoute, la VNet no tiene camino a on-premises. El Hybrid Connection Manager se instala en la red on-prem y abre un túnel **saliente** por TCP 443 → cero endpoints entrantes expuestos.
 ❌ A: VNet Integration es **outbound hacia la VNet**, y la VNet no llega a on-prem. ❌ C: private endpoint es **inbound hacia la app**, dirección contraria. ❌ D: NAT Gateway es salida a internet.
 🔑 **App Service + on-prem + sin VPN/ER + puerto TCP estático → Hybrid Connections.**
 
-**11 — B.** Entra Private Access.
+**11 → B.** Entra Private Access.
 RDP y SMB no son HTTP → Application Proxy queda descartado de inmediato.
 ❌ D: Azure Bastion da acceso a **VMs de Azure** desde el portal, no publica recursos on-premises.
 
-**12 — B.** Entra Internet Access.
+**12 → B.** Entra Internet Access.
 🔑 **Filtrado web, categorías de URL, SWG, tráfico saliente hacia internet/SaaS → Internet Access.**
 Contraste con la 11: **Private Access trae al usuario hacia recursos privados de la organización; Internet Access controla lo que sale hacia internet.**
 ❌ D: Azure Firewall Premium filtra tráfico de **recursos en la VNet**, no de dispositivos de usuario en cualquier red.
 
-**13 — C.** Azure Firewall Premium.
+**13 → C.** Azure Firewall Premium.
 🔑 **Inspeccionar contenido dentro de HTTPS → Premium obligatorio.** Standard filtra por FQDN (ve el nombre vía SNI) pero no descifra, así que no ve el contenido ni aplica IDPS.
 
-**14 — A.** Front Door con WAF.
+**14 → A.** Front Door con WAF.
 🔑 **Multi-región + edge + protección L7 → Front Door WAF.** Application Gateway WAF es **regional y dentro de tu VNet**: válido, pero obliga a una instancia por región y no protege en el edge.
 ❌ C: el Firewall es L3/L4 + inspección de egress, no protege la app de SQLi/XSS entrante.
 
-**15 — B.** NSGs con ASGs.
+**15 → B.** NSGs con ASGs.
 🔑 **"agrupar por rol sin gestionar IPs"** → ASG. Con autoescalado las IPs cambian; el ASG es la agrupación lógica que se mantiene.
 ❌ A: los Service Tags son etiquetas **de Microsoft** para servicios de Azure (Storage, SQL, KeyVault), no para tus VMs.
 
-**16 — B.** 3 segmentos, 2 políticas.
+**16 → B.** 3 segmentos, 2 políticas.
 Segmentos: Banca, Análisis, Legal. Políticas: solo donde hay **restricción** → Banca bloquea Análisis, y Análisis bloquea Banca. Legal no lleva política porque el comportamiento por defecto es permitir, y eso ya cumple "puede hablar con ambos".
 🔑 **Segmentos = grupos con comportamiento de comunicación distinto. Políticas = segmentos que necesitan restricción.** Un segmento sin restricciones no consume política.
 ⚠️ La trampa es responder 3 políticas "por simetría" con Legal, o 4 segmentos contando cada grupo organizativo.
 
-**17 — B.** Endpoint DLP con onboarding de dispositivos.
+**17 → B.** Endpoint DLP con onboarding de dispositivos.
 🔑 **Apps de IA de terceros + control en el endpoint → Endpoint DLP, y requiere onboarding del dispositivo a Purview, no licencia de Copilot.** Esta es la actualización de 2026 que conviene tener fresca.
 ❌ A: la etiqueta protege el documento, no impide pegar texto en un navegador. ❌ C: IRM detecta patrones de comportamiento, no bloquea la acción.
 
-**18 — B.** Microsoft 365 E5.
+**18 → B.** Microsoft 365 E5.
 🔑 **Auto-labeling siempre E5.** E3 solo da etiquetado **manual**. Mismo patrón para Endpoint DLP, Insider Risk, eDiscovery Premium y Audit Premium.
 
-**19 — B.** Security baselines solo Windows; wipe remoto en ambos.
+**19 → B.** Security baselines solo Windows; wipe remoto en ambos.
 🔑 **Regla general de Intune:** lo que es "baseline", "privilege management" o específico del stack Windows (BitLocker, Autopilot, Defender) es **Windows-only**. Las acciones remotas genéricas sobre el dispositivo (lock, wipe, retire, sync) son **multiplataforma**.
 
-**20 — B.** Application control policies en Defender for Endpoint.
+**20 → B.** Application control policies en Defender for Endpoint.
 Allow-list explícita de software autorizado, con bloqueo por defecto de lo no aprobado.
 ❌ C: MDA app discovery detecta shadow IT SaaS, no ejecución de binarios. ❌ D: CA App Control es control de sesión en apps cloud.
 
-**21 — B.** Always Encrypted + Dynamic Data Masking.
+**21 → B.** Always Encrypted + Dynamic Data Masking.
 Dos requisitos, dos controles distintos:
 - *DBA no ve el valor real* → **Always Encrypted**: la clave nunca reside en el servidor SQL, así que ni sysadmin ve el claro.
 - *Operadores ven los 4 últimos dígitos* → **Dynamic Data Masking**: ofuscación en la presentación.
-❌ A: TDE cifra en reposo pero el DBA sí ve el dato en claro al consultar — es la confusión clásica.
+❌ A: TDE cifra en reposo pero el DBA sí ve el dato en claro al consultar → es la confusión clásica.
 ⚠️ Recuerda que DDM **solo oculta visualmente**: el dato real sigue siendo accesible con los permisos adecuados. Por eso no basta por sí solo para el primer requisito.
 
-**22 — B.** SAS con caducidad, preferiblemente **user delegation SAS**.
+**22 → B.** SAS con caducidad, preferiblemente **user delegation SAS**.
 La user delegation SAS se firma con credenciales de Entra en lugar de con la clave de cuenta, así que es revocable y auditable.
 ❌ A: expone públicamente. ❌ C: funciona pero exige crear identidades, que el enunciado descarta.
 
-**23 — C.** Client-side encryption.
+**23 → C.** Client-side encryption.
 🔑 **"La clave nunca existe en Azure"** = HYOK, y **HYOK no está soportado en el cifrado nativo de PaaS**. La única alternativa real es cifrar antes de subir.
-❌ A: BYOK importa la clave a Azure, así que **la clave acaba existiendo en Azure** — es exactamente lo que se prohíbe.
+❌ A: BYOK importa la clave a Azure, así que **la clave acaba existiendo en Azure** → es exactamente lo que se prohíbe.
 
-**24 — B.** El conector nativo de AWS S3 en Sentinel.
+**24 → B.** El conector nativo de AWS S3 en Sentinel.
 🔑 **Logs de terceros / CloudTrail / ingesta centralizada → Sentinel.** Azure Arc extiende el control plane para políticas y agentes, pero no es un mecanismo de ingesta de logs.
 ❌ D: Logic Apps es automatización y playbooks, **nunca** ingesta.
 
-**25 — C.** Threat modeling con Microsoft Threat Modeling Tool.
+**25 → C.** Threat modeling con Microsoft Threat Modeling Tool.
 🔑 **Fase de diseño → threat modeling (STRIDE).** SAST es build/commit, DAST es operate.
 Y el complemento que cae mucho: el diagrama que se crea en la Threat Modeling Tool es un **data flow diagram**.
 
@@ -434,4 +434,4 @@ Y el complemento que cae mucho: el diagrama que se crea en la Threat Modeling To
 
 **Sigue sin cubrirse** (los tres gaps que más cuestan): granularidad de Azure Files a nivel de share, AzureBastionSubnet como objetivo de control NSG, y el tier de GitHub Enterprise Cloud para Dependabot en repos privados. Esos tres piden un bloque propio.
 
-**Repite estas si fallaste:** 1, 2, 7 y 8 son las versiones directas de tus los fallos previos. Si vuelves a fallar alguna, el problema no es memoria sino el criterio de discriminación — vuelve a la regla en negrita de cada una.
+**Repite estas si fallaste:** 1, 2, 7 y 8 son las versiones directas de tus los fallos previos. Si vuelves a fallar alguna, el problema no es memoria sino el criterio de discriminación → vuelve a la regla en negrita de cada una.

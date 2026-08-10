@@ -4,8 +4,7 @@ El núcleo del método. No son definiciones: es un mapa de **qué palabra del en
 
 | Archivo | Contenido |
 |---|---|
-| [`01-diccionario.md`](./01-diccionario.md) | Diccionario principal por bloques temáticos + chuleta de palabras gancho |
-| [`02-ampliacion.md`](./02-ampliacion.md) | Ampliación posterior: conceptos que faltaban y correcciones a entradas obsoletas |
+| [`01-diccionario.md`](./01-diccionario.md) | Diccionario único por bloques temáticos + chuleta de palabras gancho. Las entradas marcadas con ⚠️ corrigen o matizan una versión anterior |
 
 ## Cómo usarlo
 

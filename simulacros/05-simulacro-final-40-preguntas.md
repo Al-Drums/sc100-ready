@@ -1,4 +1,4 @@
-# SIMULACRO FINAL SC-100 — 40 preguntas (formato tipo examen)
+# SIMULACRO FINAL SC-100 → 40 preguntas (formato tipo examen)
 
 **El último antes del examen del viernes.** Tiempo objetivo: 80 minutos (~2 min/pregunta, ritmo real).
 Hazlo a papel cerrado. Apunta también las que dudes aunque aciertes. Solucionario al final.
@@ -333,7 +333,7 @@ Opciones: *Plan and develop · Build and test · Operate*
 
 ---
 
-**39.** Serie Yes/No — Debes proteger backups en un Recovery Services vault contra un administrador comprometido. Cada solución es independiente; responde Sí/No a si cumple el objetivo de *"exigir aprobación de un segundo actor para operaciones críticas"*:
+**39.** Serie Yes/No → Debes proteger backups en un Recovery Services vault contra un administrador comprometido. Cada solución es independiente; responde Sí/No a si cumple el objetivo de *"exigir aprobación de un segundo actor para operaciones críticas"*:
 
 - **39a.** Habilitar soft delete con retención de 180 días. → Sí / No
 - **39b.** Configurar MUA con un Resource Guard. → Sí / No
@@ -358,103 +358,103 @@ Opciones: *Azure Lighthouse · Azure Arc · Segmentar workspaces de Sentinel por
 
 ---
 
-**1 — B.** Application Proxy. App web interna HTTP + reemplazar VPN + sin abrir puertos. (Si fuera no-HTTP → Private Access.)
+**1 → B.** Application Proxy. App web interna HTTP + reemplazar VPN + sin abrir puertos. (Si fuera no-HTTP → Private Access.)
 
-**2 — B.** Private Access. SSH y SQL no son HTTP → App Proxy queda descartado; Private Access soporta cualquier TCP/UDP.
+**2 → B.** Private Access. SSH y SQL no son HTTP → App Proxy queda descartado; Private Access soporta cualquier TCP/UDP.
 
-**3 — B, C, E.** Private Endpoint (principal + SCM) + deshabilitar acceso público + Private DNS Zone. VNet Integration es outbound (no aísla); Service Endpoint va VNet→PaaS (dirección contraria); Access Restrictions filtra pero conserva IP pública. **El SCM es lo que evita que fallen los despliegues.**
+**3 → B, C, E.** Private Endpoint (principal + SCM) + deshabilitar acceso público + Private DNS Zone. VNet Integration es outbound (no aísla); Service Endpoint va VNet→PaaS (dirección contraria); Access Restrictions filtra pero conserva IP pública. **El SCM es lo que evita que fallen los despliegues.**
 
-**4 — B.** Hybrid Connections (túnel saliente por 443 desde on-prem). VNet Integration no llega a on-prem sin VPN/ER; Private Endpoint es la dirección contraria.
+**4 → B.** Hybrid Connections (túnel saliente por 443 desde on-prem). VNet Integration no llega a on-prem sin VPN/ER; Private Endpoint es la dirección contraria.
 
-**5 — B.** Encryption scopes con CMK por container. Sin scopes, toda la cuenta comparte una clave. Tres cuentas separadas funciona pero es rediseño innecesario (no la mínima suficiente).
+**5 → B.** Encryption scopes con CMK por container. Sin scopes, toda la cuenta comparte una clave. Tres cuentas separadas funciona pero es rediseño innecesario (no la mínima suficiente).
 
-**6 — C.** Managed HSM con RBAC. "Hardware dedicado / no compartido" → Managed HSM (Premium también es FIPS L3 pero HSM compartido). Managed HSM solo admite RBAC.
+**6 → C.** Managed HSM con RBAC. "Hardware dedicado / no compartido" → Managed HSM (Premium también es FIPS L3 pero HSM compartido). Managed HSM solo admite RBAC.
 
-**7 — C.** Client-side encryption. "La clave nunca existe en Azure" = HYOK, no soportado en cifrado nativo de PaaS → cifras antes de subir. BYOK mete la clave en Azure (justo lo prohibido).
+**7 → C.** Client-side encryption. "La clave nunca existe en Azure" = HYOK, no soportado en cifrado nativo de PaaS → cifras antes de subir. BYOK mete la clave en Azure (justo lo prohibido).
 
-**8 — B.** CMK en el Storage Account del Data Lake. El serverless no tiene storage propio → no tiene TDE.
+**8 → B.** CMK en el Storage Account del Data Lake. El serverless no tiene storage propio → no tiene TDE.
 
-**9 — B.** NumeroCuenta Deterministic (permite `WHERE =`, apto para alta cardinalidad), Pais Randomized (máxima seguridad, no se consulta). Invertir la lógica de cardinalidad es la trampa.
+**9 → B.** NumeroCuenta Deterministic (permite `WHERE =`, apto para alta cardinalidad), Pais Randomized (máxima seguridad, no se consulta). Invertir la lógica de cardinalidad es la trampa.
 
-**10 — C.** Secure Enclaves. Ni deterministic ni randomized (clásico) soportan rango; el enclave descifra en memoria aislada.
+**10 → C.** Secure Enclaves. Ni deterministic ni randomized (clásico) soportan rango; el enclave descifra en memoria aislada.
 
-**11 — B.** Always Encrypted. La clave nunca reside en el servidor SQL, así que ni sysadmin ve el claro. TDE cifra en reposo pero el DBA sí ve el dato al consultar.
+**11 → B.** Always Encrypted. La clave nunca reside en el servidor SQL, así que ni sysadmin ve el claro. TDE cifra en reposo pero el DBA sí ve el dato al consultar.
 
-**12 — B.** Controlled Folder Access (allow-list sobre carpetas designadas → frena 0-day). ASR es comportamientos de proceso; BitLocker no protege contra ransomware.
+**12 → B.** Controlled Folder Access (allow-list sobre carpetas designadas → frena 0-day). ASR es comportamientos de proceso; BitLocker no protege contra ransomware.
 
-**13 — B.** Attack Surface Reduction rules (bloquea comportamientos de proceso, independiente de carpeta). CFA es carpetas concretas.
+**13 → B.** Attack Surface Reduction rules (bloquea comportamientos de proceso, independiente de carpeta). CFA es carpetas concretas.
 
-**14 — C.** Resource Guard en un tenant distinto. "Ni un Global Admin comprometido" + "máxima protección" → otro tenant, no otra suscripción.
+**14 → C.** Resource Guard en un tenant distinto. "Ni un Global Admin comprometido" + "máxima protección" → otro tenant, no otra suscripción.
 
-**15 — B.** Immutable vault con WORM + versionado. El cifrado protege confidencialidad, no integridad. Geo-redundancia es disponibilidad; BitLocker es robo físico.
+**15 → B.** Immutable vault con WORM + versionado. El cifrado protege confidencialidad, no integridad. Geo-redundancia es disponibilidad; BitLocker es robo físico.
 
-**16 — A.** 2 → 3 → 1 (evaluar alcance → LOB apps caídas → proceso de recuperación). *Entender antes de priorizar, priorizar antes de actuar.* Es la secuencia de **investigación** (la de recuperación empieza deshabilitando la sincronización).
+**16 → A.** 2 → 3 → 1 (evaluar alcance → LOB apps caídas → proceso de recuperación). *Entender antes de priorizar, priorizar antes de actuar.* Es la secuencia de **investigación** (la de recuperación empieza deshabilitando la sincronización).
 
-**17 — B.** Defender for Identity. Kerberos/DCSync/on-prem → siempre esta; ID Protection es ciego a lo on-prem puro.
+**17 → B.** Defender for Identity. Kerberos/DCSync/on-prem → siempre esta; ID Protection es ciego a lo on-prem puro.
 
-**18 — B.** Entra ID Protection. Viaje imposible en el login cloud = riesgo de sign-in.
+**18 → B.** Entra ID Protection. Viaje imposible en el login cloud = riesgo de sign-in.
 
-**19 — C.** Defender for Cloud Apps. Post-login, comportamiento masivo en SaaS.
+**19 → C.** Defender for Cloud Apps. Post-login, comportamiento masivo en SaaS.
 
-**20 — B.** Authentication Strengths. "Phishing-resistant / FIDO2 / Windows Hello" → método concreto. "MFA a secas" (C) admite SMS, no resistente.
+**20 → B.** Authentication Strengths. "Phishing-resistant / FIDO2 / Windows Hello" → método concreto. "MFA a secas" (C) admite SMS, no resistente.
 
-**21 — B.** Conditional Access con named locations. País/ubicación es condición determinista, no riesgo calculado (eso sería ID Protection).
+**21 → B.** Conditional Access con named locations. País/ubicación es condición determinista, no riesgo calculado (eso sería ID Protection).
 
-**22 — B.** Continuous Access Evaluation. Reacciona casi en tiempo real a eventos críticos sin esperar al token. Sign-in frequency sigue siendo "esperar".
+**22 → B.** Continuous Access Evaluation. Reacciona casi en tiempo real a eventos críticos sin esperar al token. Sign-in frequency sigue siendo "esperar".
 
-**23 —**
+**23 →**
 | Requisito | Control |
 |---|---|
 | Desde dónde puede autenticarse Tier 0 | **Authentication Policy Silos** |
 | Impedir Pass-the-Hash (sin NTLM, sin cache) | **Protected Users** |
 | Tipo de logon (interactive vs RDP) | **User Rights Assignment (GPO)** |
 
-**24 — B.** Enterprise application (service principal). El application object ya existe en `vendor.com`; en tu tenant creas el service principal al consentir la app.
+**24 → B.** Enterprise application (service principal). El application object ya existe en `vendor.com`; en tu tenant creas el service principal al consentir la app.
 
-**25 — B.** IMDS + user-assigned managed identity. La UAMI sobrevive a la recreación de las VMs y minimiza los principals con acceso; IMDS entrega el token sin almacenar credenciales.
+**25 → B.** IMDS + user-assigned managed identity. La UAMI sobrevive a la recreación de las VMs y minimiza los principals con acceso; IMDS entrega el token sin almacenar credenciales.
 
-**26 — B.** PHS como respaldo manteniendo PTA. PHS es la única forma de leaked credential detection; no hace falta migrar del todo.
+**26 → B.** PHS como respaldo manteniendo PTA. PHS es la única forma de leaked credential detection; no hace falta migrar del todo.
 
-**27 — B.** Entra Cloud Sync. "Disconnected forest / M&A sin trust / sin servidores adicionales" → Cloud Sync (agente ligero). Connect Sync exige servidor dedicado.
+**27 → B.** Entra Cloud Sync. "Disconnected forest / M&A sin trust / sin servidores adicionales" → Cloud Sync (agente ligero). Connect Sync exige servidor dedicado.
 
-**28 — C.** Incompatible access packages. Previene la asignación. CA bloquea sign-ins (no asignaciones); Access Reviews detectan después.
+**28 → C.** Incompatible access packages. Previene la asignación. CA bloquea sign-ins (no asignaciones); Access Reviews detectan después.
 
-**29 — B.** B2B Direct Connect. "Shared Teams channels + identidad nativa + sin guests" → siempre Direct Connect.
+**29 → B.** B2B Direct Connect. "Shared Teams channels + identidad nativa + sin guests" → siempre Direct Connect.
 
-**30 — B.** Servidor Syslog on-prem con AMA. Logic Apps nunca para ingesta.
+**30 → B.** Servidor Syslog on-prem con AMA. Logic Apps nunca para ingesta.
 
-**31 —**
+**31 →**
 | Escenario | Producto |
 |---|---|
 | SIEM/SOAR, across all services, third-party | **Microsoft Sentinel** |
 | Correlación de los Defenders de Microsoft, self-healing | **Microsoft Defender XDR** |
 | Postura/protección Azure/AWS/GCP, Secure Score | **Microsoft Defender for Cloud** |
 
-**32 — B.** Entra Permissions Management (CIEM). Multinube + Permission Creep Index. PIM no cubre AWS/GCP.
+**32 → B.** Entra Permissions Management (CIEM). Multinube + Permission Creep Index. PIM no cubre AWS/GCP.
 
-**33 — B.** Azure Arc + Azure Policy. Arc proyecta EC2/on-prem en el plano de control de Azure. Blueprints está deprecado.
+**33 → B.** Azure Arc + Azure Policy. Arc proyecta EC2/on-prem en el plano de control de Azure. Blueprints está deprecado.
 
-**34 — D.** Azure Logic Apps. Workflow automation de Defender for Cloud dispara Logic Apps sobre alertas. Functions requeriría más esfuerzo de desarrollo.
+**34 → D.** Azure Logic Apps. Workflow automation de Defender for Cloud dispara Logic Apps sobre alertas. Functions requeriría más esfuerzo de desarrollo.
 
-**35 — D.** Istio. mTLS servicio-a-servicio + mínimo esfuerzo → service mesh. Envoy sabe hacer mTLS pero a mano (contra el requisito); Dapr son bloques de app; Flux es GitOps.
+**35 → D.** Istio. mTLS servicio-a-servicio + mínimo esfuerzo → service mesh. Envoy sabe hacer mTLS pero a mano (contra el requisito); Dapr son bloques de app; Flux es GitOps.
 
-**36 — C.** Azure Policy. El objeto son las apps ya desplegadas cumpliendo el MCSB → gobernanza del recurso. Que venga de Azure DevOps es contexto. *Defender recomienda y alerta; Azure Policy aplica y bloquea.*
+**36 → C.** Azure Policy. El objeto son las apps ya desplegadas cumpliendo el MCSB → gobernanza del recurso. Que venga de Azure DevOps es contexto. *Defender recomienda y alerta; Azure Policy aplica y bloquea.*
 
-**37 —**
+**37 →**
 | Tarea | Fase |
 |---|---|
 | Threat modeling | **Plan and develop** |
 | DAST | **Build and test** |
 | Actionable intelligence | **Operate** |
 
-**38 — C.** Endpoint DLP + DSPM for AI; primero onboarding de dispositivos en Purview. La trampa (B): las apps de IA de terceros NO requieren licencia de Copilot; eso es solo para ver M365 Copilot.
+**38 → C.** Endpoint DLP + DSPM for AI; primero onboarding de dispositivos en Purview. La trampa (B): las apps de IA de terceros NO requieren licencia de Copilot; eso es solo para ver M365 Copilot.
 
-**39 —**
+**39 →**
 - **39a. No.** Soft delete da margen temporal, pero no exige aprobación de un segundo actor.
 - **39b. Sí.** MUA con Resource Guard es precisamente la regla de dos personas.
 - **39c. No.** El Security PIN es anti-error humano; el atacante con la misma credencial lo genera. No es un segundo actor.
 
-**40 —**
+**40 →**
 | Requisito | Solución |
 |---|---|
 | Gestión cross-tenant sin guests | **Azure Lighthouse** |

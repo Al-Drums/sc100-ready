@@ -1,4 +1,4 @@
-# CASO DE ESTUDIO SC-100 — Northwind Traders
+# CASO DE ESTUDIO SC-100 → Northwind Traders
 
 **Formato de examen. Tiempo objetivo: 35 minutos para 12 preguntas.**
 Léelo entero una vez, localiza en cada pregunta la restricción que la decide, y no mires el solucionario hasta terminar.
@@ -200,7 +200,7 @@ Opciones: *Data Map · Information Protection scanner · Content Explorer · Dat
 
 ---
 
-**1 — B.** Enterprise application (service principal).
+**1 → B.** Enterprise application (service principal).
 
 Invoicing365 es multi-tenant y su **application object ya existe en `invoicing365.com`**. Lo que le falta a Northwind es la instancia local de esa app: el **service principal**, que en el portal se llama enterprise application y se crea al consentir la app.
 ❌ A: el application object no se crea en el tenant consumidor. ❌ C: las managed identities autentican recursos de Azure, no federan apps entre tenants. ❌ D: AD FS es complejidad on-prem innecesaria para un SaaS moderno.
@@ -208,42 +208,42 @@ Invoicing365 es multi-tenant y su **application object ya existe en `invoicing36
 
 ---
 
-**2 — C.** IMDS + user-assigned managed identity.
+**2 → C.** IMDS + user-assigned managed identity.
 
-La cláusula que decide: **las VMs se recrean varias veces al día.** Una identidad *system-assigned* moriría con cada VM y habría que reconfigurar el acceso al vault sin parar. La **user-assigned sobrevive**: la creas una vez, le das acceso al vault una vez, y la reasignas a cada VM nueva — lo que además **minimiza los principals** con acceso (una sola identidad para todas). **IMDS** es el endpoint local desde el que se obtiene el token sin almacenar credenciales.
+La cláusula que decide: **las VMs se recrean varias veces al día.** Una identidad *system-assigned* moriría con cada VM y habría que reconfigurar el acceso al vault sin parar. La **user-assigned sobrevive**: la creas una vez, le das acceso al vault una vez, y la reasignas a cada VM nueva → lo que además **minimiza los principals** con acceso (una sola identidad para todas). **IMDS** es el endpoint local desde el que se obtiene el token sin almacenar credenciales.
 ❌ B: system-assigned choca con la recreación continua. ❌ D: un secreto es exactamente lo que se quiere evitar.
 
 ---
 
-**3 — B.** Una managed identity.
+**3 → B.** Una managed identity.
 
 El problema del incidente 1 es que la cuenta de servicio tenía **credenciales reutilizables** que un humano pudo usar fuera de la app. Una managed identity **no tiene credenciales que un desarrollador pueda copiar**: el token se emite a la carga de trabajo y no es reutilizable fuera de ella. Y elimina la gestión de contraseñas (mínimo esfuerzo).
 ❌ A y C: gMSA/dMSA son de AD on-prem, no aplican a una app en Azure que va contra Azure SQL. ❌ D: seguiría teniendo una contraseña reutilizable.
 
 ---
 
-**4 — C.** Standard v2 + rate limit por Product.
+**4 → C.** Standard v2 + rate limit por Product.
 
 Cada grupo de distribuidores → un **Product** distinto que agrupa su subconjunto de APIs; el rate limit se aplica a nivel de producto, así cada subconjunto tiene el suyo con esfuerzo mínimo. **Standard v2** es el tier de producción que cumple sin el sobrecoste de Premium (satisface **C2**).
 ❌ A/B: Consumption y Developer no son adecuados para producción con SLA. ❌ D: Premium encarece innecesariamente.
 
 ---
 
-**5 — B.** RBAC → Subscriptions; Keys → Products.
+**5 → B.** RBAC → Subscriptions; Keys → Products.
 
 **RBAC gobierna la gestión** (quién administra APIs y quién crea/revoca suscripciones) → scope Subscriptions. **Las keys gobiernan el consumo** y se generan al suscribirse a un **Product** → scope Products.
 🔑 *Gestión→Subscriptions, consumo→Products.*
 
 ---
 
-**6 — C.** Managed HSM con un único vault y RBAC.
+**6 → C.** Managed HSM con un único vault y RBAC.
 
 El discriminador es **"tenancy propia"**, no el FIPS: Key Vault Premium también es FIPS 140-2 Level 3, pero en HSM **compartido**. Tenancy propia obliga a **Managed HSM** (single-tenant dedicado). Managed HSM **solo admite RBAC** (least privilege), y **un único vault** para las 20 apps minimiza coste y esfuerzo.
 ❌ A: Premium no es single-tenant, y además Managed HSM no usa access policies. ❌ D: un HSM por app dispara el coste.
 
 ---
 
-**7 —**
+**7 →**
 
 | Origen | Herramienta |
 |---|---|
@@ -255,42 +255,42 @@ Blob es fuente cloud-native integrada con Purview → **Data Map** la escanea y 
 
 ---
 
-**8 — B.** Endpoint DLP + DSPM for AI; primero onboarding de dispositivos en Purview.
+**8 → B.** Endpoint DLP + DSPM for AI; primero onboarding de dispositivos en Purview.
 
-**Endpoint DLP** bloquea el envío de contenido con SITs a webs de IA desde el dispositivo Windows; **DSPM for AI** da la visibilidad de los prompts. Ambos exigen que los **dispositivos estén onboarded en Purview** — y en el escenario aún **no lo están**, así que ese es el primer paso.
+**Endpoint DLP** bloquea el envío de contenido con SITs a webs de IA desde el dispositivo Windows; **DSPM for AI** da la visibilidad de los prompts. Ambos exigen que los **dispositivos estén onboarded en Purview** → y en el escenario aún **no lo están**, así que ese es el primer paso.
 ❌ C: **la trampa.** La visibilidad de apps de IA de **terceros** no requiere licencia de Copilot; esa licencia es solo para ver *Microsoft 365 Copilot*.
 
 ---
 
-**9 — B.** Mensajes → Single Item Recovery; Ficheros → Files Restore.
+**9 → B.** Mensajes → Single Item Recovery; Ficheros → Files Restore.
 
 Teams no tiene almacenamiento propio: los **mensajes** viven en buzones de **Exchange Online** (→ Single Item Recovery restaura mensajes borrados/alterados) y los **ficheros** en **SharePoint/OneDrive** (→ Files Restore revierte la biblioteca a un punto anterior).
 🔑 *La protección de Teams es la de su carga subyacente: EXO para mensajes, SPO para ficheros.*
 
 ---
 
-**10 — B.** MABS + Recovery Services vault.
+**10 → B.** MABS + Recovery Services vault.
 
 **Srv-Vault no puede salir a internet**, así que el agente **MARS** (que respalda directo a Azure) queda descartado. **MABS** actúa como servidor de backup **local**: Srv-Vault respalda contra MABS dentro de la red, y MABS orquesta el envío a Azure. Además MABS soporta backup app-aware de la BD crítica. El **Recovery Services vault** almacena datos, políticas y puntos de recuperación.
 🔑 *Servidor sin salida directa a Azure o con app-aware → MABS + Recovery Services vault. MARS solo para ficheros directos a Azure.*
 
 ---
 
-**11 — C.** MUA con Resource Guard en suscripción/tenant separada, rol Reader para el equipo de backup.
+**11 → C.** MUA con Resource Guard en suscripción/tenant separada, rol Reader para el equipo de backup.
 
 **MUA con Resource Guard** impone la regla de dos personas sobre operaciones críticas. Para **máxima seguridad**: el Resource Guard vive **fuera del alcance** de los administradores de backup (otra suscripción, idealmente otro tenant) y al equipo de backup se le asigna **solo Reader** sobre él, de modo que no puedan auto-aprobar la reducción de retención ni el borrado.
 ❌ A: la inmutabilidad protege los datos, pero el requisito pide aprobación de un segundo actor sobre operaciones → eso es MUA. ❌ B: en la misma suscripción y con Contributor, el propio equipo podría desactivarlo. ❌ D: el PIN es anti-error, no anti-ataque.
 
 ---
 
-**12 — C.** Tanto Dublín como Ámsterdam.
+**12 → C.** Tanto Dublín como Ámsterdam.
 
 **Ojo, esta es la versión bien redactada del concepto que se te resistía.** Ambos centros tienen un camino válido hacia GSA contemplado por el despliegue:
 - **Dublín** → **remote network asignada** a la política: su tráfico entra por GSA aunque los dispositivos no tengan cliente.
 - **Ámsterdam** → **cliente GSA** en todos los dispositivos: entra por GSA a nivel de dispositivo.
 
 Los dos caminos son independientes y ambos satisfacen el compliant network check, así que los dos cumplen.
-🔑 Compara con la pregunta 11 del simulacro #3, donde **solo** cumplía una oficina porque el cliente estaba desplegado en una oficina cuyo camino **no** estaba contemplado por la asignación de la política. **La regla no es "¿está instalado?", sino "¿está ese camino asignado a la política?"** Aquí ambos lo están; allí no. Mismo concepto, resultado distinto según la asignación — que es justamente el matiz que tienes que dominar.
+🔑 Compara con la pregunta 11 del simulacro #3, donde **solo** cumplía una oficina porque el cliente estaba desplegado en una oficina cuyo camino **no** estaba contemplado por la asignación de la política. **La regla no es "¿está instalado?", sino "¿está ese camino asignado a la política?"** Aquí ambos lo están; allí no. Mismo concepto, resultado distinto según la asignación → que es justamente el matiz que tienes que dominar.
 
 ---
 

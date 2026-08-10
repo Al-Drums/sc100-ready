@@ -1,7 +1,7 @@
-# SIMULACRO SC-100 — 25 preguntas
+# SIMULACRO SC-100 → 25 preguntas
 
 **Tiempo objetivo: 50 minutos (2 min/pregunta).**
-No mires el solucionario hasta terminar las 25. Apunta tu respuesta y, si dudas entre dos, apunta las dos y marca cuál elegiste — eso es lo que luego analizamos.
+No mires el solucionario hasta terminar las 25. Apunta tu respuesta y, si dudas entre dos, apunta las dos y marca cuál elegiste → eso es lo que luego analizamos.
 
 Distribución: Cifrado (4) · Ransomware y backup (4) · Identidad Entra (5) · AD on-prem (2) · Red y perímetro (4) · SecOps (3) · Gobernanza y frameworks (2) · DevSecOps (1)
 
@@ -132,7 +132,7 @@ Siguiendo la metodología DART de Microsoft, ¿cuál es el **primer** paso?
 
 ---
 
-**12.** Para cumplir SOX, ningún usuario debe poder tener simultáneamente el acceso "Finance — Read" y "Finance — Write". La solución debe **prevenir** la asignación, no detectarla a posteriori.
+**12.** Para cumplir SOX, ningún usuario debe poder tener simultáneamente el acceso "Finance → Read" y "Finance → Write". La solución debe **prevenir** la asignación, no detectarla a posteriori.
 
 ¿Qué deberías recomendar?
 
@@ -295,100 +295,100 @@ Siguiendo la metodología DART de Microsoft, ¿cuál es el **primer** paso?
 
 ---
 
-**1 — B.** Encryption scopes con CMK distinta por container.
+**1 → B.** Encryption scopes con CMK distinta por container.
 Sin encryption scopes, toda la Storage Account comparte una única CMK: revocar afecta a las tres unidades a la vez. El scope permite granularidad de container (o incluso de blob, especificándolo en el upload con `x-ms-encryption-scope`).
-❌ A: granularidad de cuenta, no aísla. ❌ C: funciona, pero es rediseño innecesario cuando existe la feature nativa — el examen premia la solución mínima suficiente. ❌ D: client-side es la respuesta cuando la clave **nunca** puede entrar en Azure (HYOK), no aquí.
+❌ A: granularidad de cuenta, no aísla. ❌ C: funciona, pero es rediseño innecesario cuando existe la feature nativa → el examen premia la solución mínima suficiente. ❌ D: client-side es la respuesta cuando la clave **nunca** puede entrar en Azure (HYOK), no aquí.
 
-**2 — C.** Managed HSM.
-🔑 La señal es **"hardware dedicado / no compartido"**. Key Vault Premium también cumple FIPS 140-2 Level 3 — el nivel FIPS **no** es el diferenciador, es el aislamiento físico single-tenant.
+**2 → C.** Managed HSM.
+🔑 La señal es **"hardware dedicado / no compartido"**. Key Vault Premium también cumple FIPS 140-2 Level 3 → el nivel FIPS **no** es el diferenciador, es el aislamiento físico single-tenant.
 ❌ B: HSM compartido entre tenants (aislamiento lógico). ❌ D: HYOK no aplica, la clave puede vivir en Azure.
 
-**3 — B.** `NumeroCuenta` Deterministic, `Pais` Randomized.
+**3 → B.** `NumeroCuenta` Deterministic, `Pais` Randomized.
 Deterministic es el **único** de los dos que permite igualdad exacta (`WHERE =`, `JOIN`). El riesgo de frequency analysis crece cuanto **más se repite** el valor, así que Deterministic encaja en alta cardinalidad. Randomized es máxima seguridad pero cero operaciones de consulta → perfecto para `Pais`, que no se consulta.
 ⚠️ La trampa clásica es invertir la lógica de cardinalidad.
 
-**4 — B.** Recrear el workspace.
+**4 → B.** Recrear el workspace.
 La CMK de workspace en Synapse **solo se configura en el momento de la creación**. Si el workspace ya existe sin CMK, no hay camino retroactivo.
-❌ A: esa hoja no permite activarla a posteriori. ❌ C: eso aplica al **Serverless** SQL Pool (que no tiene TDE porque no tiene storage propio) — confundir Dedicated con Serverless es el fallo documentado del examen. ❌ D: TDE con CMK es de Azure SQL Database, no resuelve el requisito de workspace encryption.
+❌ A: esa hoja no permite activarla a posteriori. ❌ C: eso aplica al **Serverless** SQL Pool (que no tiene TDE porque no tiene storage propio) → confundir Dedicated con Serverless es el fallo documentado del examen. ❌ D: TDE con CMK es de Azure SQL Database, no resuelve el requisito de workspace encryption.
 
-**5 — C.** Deshabilitar la sincronización de OneDrive y Exchange ActiveSync.
+**5 → C.** Deshabilitar la sincronización de OneDrive y Exchange ActiveSync.
 Fase 1 de DART = **Contain**, y el primer paso literal es cortar la sincronización para que el cifrado no se propague al cloud.
 ❌ A/B/D corresponden a fases posteriores (Investigate, Recover, Eradicate). El primer paso nunca es escanear, restaurar ni contactar autoridades.
 
-**6 — C.** Resource Guard en un tenant distinto.
+**6 → C.** Resource Guard en un tenant distinto.
 🔑 La palabra gancho es **"máxima protección"** + "Global Admin comprometido". Un Resource Guard en otra suscripción del mismo tenant sigue estando bajo el alcance de ese Global Admin.
 ❌ A: soft delete da 14 días de margen, pero no impide la operación. ❌ D: el Security PIN es anti-error humano; el atacante con la misma credencial también lo genera.
 
-**7 — B.** Immutable vault con WORM y versionado.
+**7 → B.** Immutable vault con WORM y versionado.
 🔑 Trampa CIA: el cifrado protege **confidencialidad**, no integridad. Contra alteración/borrado de backups por ransomware → inmutabilidad.
 ❌ C es disponibilidad. ❌ D es robo físico del dispositivo, no ransomware.
 
-**8 — B.** Controlled Folder Access.
+**8 → B.** Controlled Folder Access.
 Modelo **allow-list** (default deny) sobre carpetas designadas → por eso frena 0-day que las firmas no ven. El enunciado dice explícitamente "escribir en carpetas".
 ❌ C ASR es la respuesta cuando el enunciado habla de **comportamientos de proceso** (Office lanzando child process, scripts ofuscados), no de carpetas. ❌ A BitLocker no protege contra ransomware en absoluto. ❌ D LAPS es rotación de admin local.
 
-**9 — B.** B2B Direct Connect.
+**9 → B.** B2B Direct Connect.
 🔑 **"shared Teams channels" + "identidad nativa" + "sin guests"** → siempre Direct Connect.
 ❌ A crea guests. ❌ C es sincronización entre tenants de la **misma** organización (M&A). ❌ D es para consumidores que parten de cero, no partners con tenant propio.
 
-**10 — B.** Entra Domain Services.
+**10 → B.** Entra Domain Services.
 🔑 **"LDAP + cloud-only + minimizar esfuerzo administrativo"** → respuesta automática.
 ❌ A cumple pero maximiza el esfuerzo admin, justo lo contrario del requisito. ❌ C/D no hablan LDAP/Kerberos.
 
-**11 — B.** Private Access para los tres.
+**11 → B.** Private Access para los tres.
 Application Proxy **solo** publica HTTP/HTTPS: no puede con SSH ni SQL. Private Access (ZTNA) soporta cualquier TCP/UDP y además cubre la web app, así que una sola solución resuelve todo.
-❌ C funcionaría técnicamente, pero mantiene dos soluciones cuando una basta — y Application Proxy es legacy que Microsoft recomienda migrar. ❌ D Internet Access es filtrado de salida (SWG), dirección opuesta.
+❌ C funcionaría técnicamente, pero mantiene dos soluciones cuando una basta → y Application Proxy es legacy que Microsoft recomienda migrar. ❌ D Internet Access es filtrado de salida (SWG), dirección opuesta.
 
-**12 — C.** Incompatible access packages.
+**12 → C.** Incompatible access packages.
 El requisito clave es **prevenir**, no detectar.
 ❌ A Conditional Access bloquea sign-ins, no asignaciones de acceso. ❌ B Access Reviews detectan **después**. ❌ D las AUs delegan gestión, no controlan combinaciones.
 
-**13 — B.** Habilitar PHS como respaldo manteniendo PTA.
-PHS es la **única** forma de tener leaked credential detection, sin excepción — pero se puede activar en modo backup conviviendo con PTA como método primario.
+**13 → B.** Habilitar PHS como respaldo manteniendo PTA.
+PHS es la **única** forma de tener leaked credential detection, sin excepción → pero se puede activar en modo backup conviviendo con PTA como método primario.
 ❌ A: la migración total no es necesaria. ❌ C: Smart Lockout mitiga password spray, no detecta credenciales filtradas.
 
-**14 — B.** Workload Identity Federation + user-assigned managed identity.
+**14 → B.** Workload Identity Federation + user-assigned managed identity.
 Respuesta canónica de DevSecOps/CAF: cero secretos que gestionar o rotar.
 ❌ A sigue teniendo un secreto. ❌ C usar identidades humanas para pipelines viola el modelo. ❌ D mismo problema de gestión de credenciales.
 
-**15 — B.** Authentication Policy Silos.
+**15 → B.** Authentication Policy Silos.
 Restringen **desde dónde** puede autenticarse una cuenta.
 ❌ A Protected Users es una restricción global del grupo (sin NTLM, sin cache, TGT corto), no controla origen. ❌ C User Rights Assignment controla el **tipo** de logon (interactive vs RDP), no el equipo de origen.
 
-**16 — B.** Defender for Identity.
+**16 → B.** Defender for Identity.
 🔑 Kerberos / NTLM / Domain Controller / DCSync / Golden Ticket → **siempre** Defender for Identity. Entra ID Protection es ciego a ataques on-prem puros porque no ve tráfico Kerberos local.
 
-**17 — B, C, E.** Private Endpoint + deshabilitar acceso público + Private DNS Zone.
+**17 → B, C, E.** Private Endpoint + deshabilitar acceso público + Private DNS Zone.
 El Private Endpoint da la IP privada (inbound), pero **sin deshabilitar el acceso público la app sigue siendo alcanzable por su URL**. La Private DNS Zone es obligatoria siempre que uses Private Endpoint, incluso si todo el consumo es interno.
 ❌ A VNet Integration es solo **outbound**, no aísla nada. ❌ D Service Endpoint va en dirección VNet→PaaS: es la confusión más peligrosa del bloque. ❌ F filtra, pero no elimina la exposición pública.
-⚠️ Extra de examen: acuérdate del endpoint **SCM/Kudu** — si lo olvidas, los despliegues desde Pipelines fallan.
+⚠️ Extra de examen: acuérdate del endpoint **SCM/Kudu** → si lo olvidas, los despliegues desde Pipelines fallan.
 
-**18 — B.** Azure Firewall Premium.
+**18 → B.** Azure Firewall Premium.
 🔑 **"detectar sobre HTTPS"** → Premium obligatorio. Standard hace FQDN filtering pero **no abre TLS**, así que no ve el contenido.
 ❌ D Front Door WAF es inbound; el enunciado es egress.
 
-**19 — C.** UDR en cada spoke apuntando al Firewall del hub.
+**19 → C.** UDR en cada spoke apuntando al Firewall del hub.
 El peering **no es transitivo**: A↔Hub y Hub↔B no dan A↔B.
-❌ B daría conectividad directa saltándose el Firewall — justo lo contrario del requisito.
+❌ B daría conectividad directa saltándose el Firewall → justo lo contrario del requisito.
 
-**20 — B.** El header `X-Azure-FDID`.
+**20 → B.** El header `X-Azure-FDID`.
 ❌ A y C fallan por la misma razón: las IPs y el Service Tag de Front Door son **compartidos entre tenants y cambian**, así que dejarían entrar tráfico de otros clientes de Front Door.
 
-**21 — B.** Servidor Syslog on-premises con AMA.
+**21 → B.** Servidor Syslog on-premises con AMA.
 ❌ A: las Logic Apps son para automatización y playbooks, **nunca** para ingesta.
 
-**22 — C.** Auxiliary logs.
+**22 → C.** Auxiliary logs.
 🔑 **"alto volumen + bajo coste + no crítico + retención larga"**. Basic logs es más barato que Analytics pero Auxiliary es el escalón inferior y llega a un año de retención.
 
-**23 — B.** Entra Permissions Management (CIEM).
+**23 → B.** Entra Permissions Management (CIEM).
 🔑 **Multinube + identidades sobre-privilegiadas + métrica** → el Permission Creep Index es exactamente esa métrica.
 ❌ A PIM es JIT de roles Entra/Azure y **no cubre AWS/GCP**. ❌ C Attack Path ve rutas de ataque, no analiza permisos en profundidad.
 
-**24 — B.** Defender CSPM.
+**24 → B.** Defender CSPM.
 Cloud Security Explorer, agentless scanning y regulatory compliance completo (NIST/ISO/PCI) son todos features de pago.
-❌ A el gratuito solo da Secure Score, MCSB e inventario. ❌ D Compliance Manager mide procesos y personas (M365), no postura técnica de recursos cloud — *"Defender mide máquinas, Purview mide personas"*.
+❌ A el gratuito solo da Secure Score, MCSB e inventario. ❌ D Compliance Manager mide procesos y personas (M365), no postura técnica de recursos cloud → *"Defender mide máquinas, Purview mide personas"*.
 
-**25 — B.** Cloud Adoption Framework.
+**25 → B.** Cloud Adoption Framework.
 🔑 **"landing zones + management groups + gobernanza organizacional"** → siempre CAF. WAF es "cómo diseño **esta** workload" (5 pilares); MCSB es el baseline técnico de controles que vive dentro del CAF.
 
 ---
@@ -399,7 +399,7 @@ Cloud Security Explorer, agentless scanning y regulatory compliance completo (NI
 |---|---|
 | 22-25 | Nivel de aprobado holgado. Repasa solo los fallos. |
 | 19-21 | Aprobarías, pero con poco margen. Mira si los fallos se concentran en un dominio. |
-| 15-18 | Zona de riesgo — es aproximadamente donde estabas con 679. |
+| 15-18 | Zona de riesgo → es aproximadamente donde estabas con 679. |
 | <15 | Vuelve al diccionario antes de más preguntas. |
 
 **Huecos que este simulacro no cubre:** ninguna de estas 25 preguntas cubre Azure Files (granularidad de share), AzureBastionSubnet como control NSG ni el tier de GitHub para Dependabot en repos privados. Si alguno de esos temas resulta flojo, conviene un mini-bloque adicional centrado solo en esos tres puntos y el resto del temario de Bastion y DevSecOps.

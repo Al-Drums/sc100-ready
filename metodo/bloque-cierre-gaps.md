@@ -1,11 +1,11 @@
-# BLOQUE DE CIERRE — Los 3 gaps abiertos
+# BLOQUE DE CIERRE → Los 3 gaps abiertos
 
 Verificado contra la documentación de Microsoft y GitHub el 23 de julio de 2026.
 Lee primero las tres fichas, luego contesta las 10 preguntas.
 
 ---
 
-# FICHA 1 — Azure Files: granularidad de la autorización
+# FICHA 1 → Azure Files: granularidad de la autorización
 
 ## El modelo de dos capas
 
@@ -16,7 +16,7 @@ Azure Files con autenticación basada en identidad tiene **dos niveles de permis
 | **Share-level** | **Azure RBAC** (roles integrados) | **Solo el share completo** | Si el usuario puede acceder al share |
 | **Directory/file-level** | **Windows ACLs (NTFS)** | Root, directorio o archivo individual | Qué operaciones puede hacer dentro |
 
-La regla de oro: **Azure RBAC no baja de share.** Si necesitas permisos distintos por carpeta o por archivo, eso **no** se hace con RBAC — se hace con ACLs NTFS.
+La regla de oro: **Azure RBAC no baja de share.** Si necesitas permisos distintos por carpeta o por archivo, eso **no** se hace con RBAC → se hace con ACLs NTFS.
 
 ## Cómo se combinan
 
@@ -52,13 +52,13 @@ El Elevated Contributor es el que necesitas para configurar las ACLs desde un cl
 
 ---
 
-# FICHA 2 — AzureBastionSubnet como objetivo de NSG
+# FICHA 2 → AzureBastionSubnet como objetivo de NSG
 
 ## Lo primero: sí, admite NSG
 
 Aquí hay una confusión muy extendida (y algún blog lo dice mal): **AzureBastionSubnet SÍ soporta NSG**. El que **no** admite NSG es **AzureFirewallSubnet**. No los mezcles.
 
-Ahora bien, la advertencia de Microsoft es clara: **si asocias un NSG, tienes que configurar todas las reglas requeridas.** Omitir una sola impide que Bastion reciba actualizaciones de plataforma o rompe la conectividad con las VMs — y el fallo es silencioso, porque el despliegue puede tener éxito y Bastion simplemente no funcionar.
+Ahora bien, la advertencia de Microsoft es clara: **si asocias un NSG, tienes que configurar todas las reglas requeridas.** Omitir una sola impide que Bastion reciba actualizaciones de plataforma o rompe la conectividad con las VMs → y el fallo es silencioso, porque el despliegue puede tener éxito y Bastion simplemente no funcionar.
 
 ## Requisitos de la subnet
 
@@ -102,11 +102,11 @@ Si en una pregunta ves una regla de entrada de 3389 desde Internet sobre AzureBa
 
 ---
 
-# FICHA 3 — Dependabot y los tiers de GitHub ⚠️ CORRECCIÓN
+# FICHA 3 → Dependabot y los tiers de GitHub ⚠️ CORRECCIÓN
 
 ## Lo que tenías anotado ya no es correcto
 
-Tenías apuntado que **Dependabot en repos privados requiere GitHub Enterprise Cloud**. Según la documentación actual de GitHub, **eso ya no se sostiene**: Dependabot está habilitado por defecto en todos los repositorios **públicos** y **se puede habilitar en los privados** — sin depender de un tier concreto ni de GitHub Advanced Security.
+Tenías apuntado que **Dependabot en repos privados requiere GitHub Enterprise Cloud**. Según la documentación actual de GitHub, **eso ya no se sostiene**: Dependabot está habilitado por defecto en todos los repositorios **públicos** y **se puede habilitar en los privados** → sin depender de un tier concreto ni de GitHub Advanced Security.
 
 Cambiar esta creencia importa, porque si en el examen aparece "¿qué necesitas para Dependabot en repos privados?", la respuesta ya no es "subir de tier".
 
@@ -163,7 +163,7 @@ Mnemotécnica que ya tienes: *"¿de quién es el código defectuoso? Mío = SAST
 - C. Crear un share independiente por departamento y asignar RBAC a cada uno
 - D. Usar Conditional Access con condición de grupo sobre cada carpeta
 
-*(Puede haber más de una técnicamente válida — elige la que refleja el modelo de permisos de Azure Files.)*
+*(Puede haber más de una técnicamente válida → elige la que refleja el modelo de permisos de Azure Files.)*
 
 ---
 
@@ -265,44 +265,44 @@ Mnemotécnica que ya tienes: *"¿de quién es el código defectuoso? Mío = SAST
 
 ---
 
-**1 — B.** RBAC a nivel de share + Windows ACLs por carpeta.
+**1 → B.** RBAC a nivel de share + Windows ACLs por carpeta.
 🔑 **Azure RBAC no baja de share.** No existe forma de asignar un rol RBAC "sobre la carpeta `\RRHH`", así que A es imposible tal como está redactada.
 C funciona técnicamente y a veces es la respuesta cuando el enunciado pide aislamiento total o cuotas separadas, pero **no es el modelo de permisos de Azure Files** y multiplica los shares innecesariamente. Cuando la pregunta es "permisos distintos dentro del mismo share", la respuesta es siempre RBAC + ACLs.
 ❌ D: Conditional Access controla el acceso a aplicaciones, no permisos de sistema de archivos.
 
-**2 — B.** Solo leer.
+**2 → B.** Solo leer.
 🔑 **Se aplican ambas capas y gana la más restrictiva.** El share actúa de puerta: si ahí solo tiene lectura, la ACL no puede ampliarlo.
 ⚠️ Esto funciona igual en el sentido inverso: Contributor en el share + solo lectura en la ACL = solo lectura.
 
-**3 — C.** Elevated Contributor.
+**3 → C.** Elevated Contributor.
 Es el único de los tres roles SMB que añade la capacidad de **modificar las ACLs NTFS**.
 ❌ D: Storage Account Contributor es un rol del plano de gestión (gestiona la cuenta), no concede acceso al plano de datos SMB.
 
-**4 — B.** Default share-level permission + Windows ACLs.
+**4 → B.** Default share-level permission + Windows ACLs.
 El default share-level permission concede el rol a todas las identidades autenticadas, esquivando el requisito de identidad híbrida sincronizada. La granularidad real la ponen después las ACLs.
 🔑 Palabra gancho: **"no puedo sincronizar el AD DS con Entra"**.
 
-**5 — C.** Puertos 3389 y 22 desde Internet.
+**5 → C.** Puertos 3389 y 22 desde Internet.
 🔑 **La trampa central del bloque.** El usuario llega por **443**. El 3389/22 lo origina Bastion **hacia** la VM, así que va en **salida** con destino VirtualNetwork, nunca en entrada desde Internet.
 Las otras tres sí son necesarias: 443 desde Internet (usuario), 443 desde GatewayManager (plano de control) y 8080/5701 desde VirtualNetwork (plano de datos entre instancias).
 
-**6 — B.** Bastion sí, Firewall no.
-AzureBastionSubnet **soporta NSG** — de hecho Microsoft lo recomienda para aplicar mínimo privilegio, siempre que configures **todas** las reglas requeridas. AzureFirewallSubnet **no admite NSG**, porque el propio Firewall gestiona toda la política de tráfico.
+**6 → B.** Bastion sí, Firewall no.
+AzureBastionSubnet **soporta NSG** → de hecho Microsoft lo recomienda para aplicar mínimo privilegio, siempre que configures **todas** las reglas requeridas. AzureFirewallSubnet **no admite NSG**, porque el propio Firewall gestiona toda la política de tráfico.
 
-**7 — B.** /26, sin route tables ni delegaciones.
+**7 → B.** /26, sin route tables ni delegaciones.
 Desde noviembre de 2021 el mínimo es **/26**. Los desplegados antes con /27 siguen funcionando pero no escalan.
 ❌ C: las route tables en AzureBastionSubnet están explícitamente desaconsejadas y rompen el servicio.
 ⚠️ Recuerda también: nombre exacto `AzureBastionSubnet` e IP pública Standard estática.
 
-**8 — B.** Falta la salida 3389/22 hacia VirtualNetwork.
+**8 → B.** Falta la salida 3389/22 hacia VirtualNetwork.
 El síntoma lo dice todo: **el portal carga** (luego la entrada 443 funciona) pero **la sesión no abre** (luego falla el tramo Bastion → VM).
-🔑 Aprende a leer el síntoma: si falla la conexión al portal, mira las reglas de entrada; si falla la sesión contra la VM, mira las de salida — y también el NSG de la subnet de la VM, que debe permitir 3389/22 desde el service tag VirtualNetwork.
+🔑 Aprende a leer el síntoma: si falla la conexión al portal, mira las reglas de entrada; si falla la sesión contra la VM, mira las de salida → y también el NSG de la subnet de la VM, que debe permitir 3389/22 desde el service tag VirtualNetwork.
 
-**9 — A.** Habilitar Dependabot; sin licencia adicional.
+**9 → A.** Habilitar Dependabot; sin licencia adicional.
 ⚠️ **Esta es la corrección respecto a lo que tenías anotado.** Dependabot alerts, security updates y version updates están disponibles en repos privados sin requerir un tier concreto ni Advanced Security. En públicos viene activado por defecto; en privados hay que activarlo.
 ❌ D: Defender for DevOps agrega hallazgos de seguridad en Defender for Cloud, pero no es lo que habilita Dependabot.
 
-**10 — B.** Advanced Security.
+**10 → B.** Advanced Security.
 🔑 **Aquí sí está la línea de pago.** Code scanning con CodeQL y secret scanning **en repos privados** requieren Advanced Security; en repos públicos son gratis.
 Contraste con la 9: **Dependabot gratis en todas partes; CodeQL y secret scanning de pago en privados.**
 

@@ -1,4 +1,4 @@
-# CASO DE ESTUDIO SC-100 — Wingtip Financial Group
+# CASO DE ESTUDIO SC-100 → Wingtip Financial Group
 
 **Gemelo estructural del caso Litware.** Mismos patrones, distinto disfraz. Hazlo a papel cerrado y compara tu razonamiento con el del caso original: si aciertas ambos por el mismo motivo, tienes el patrón dominado.
 
@@ -157,7 +157,7 @@ Opciones: *Microsoft Entra ID Protection · Microsoft Defender for Identity · S
 
 ---
 
-**1 —**
+**1 →**
 
 | Requisito | Solución |
 |---|---|
@@ -169,7 +169,7 @@ Opciones: *Microsoft Entra ID Protection · Microsoft Defender for Identity · S
 
 ---
 
-**2 — (a) B · (b) B.** Segmentar por región y tenant + Azure Lighthouse.
+**2 → (a) B · (b) B.** Segmentar por región y tenant + Azure Lighthouse.
 
 - **Segmentar por región/tenant** → lo exige la **residencia de datos**: filiales en Norteamérica y Alemania, cuyos logs deben quedarse en su región. Un workspace centralizado violaría el requisito regulatorio.
 - **Azure Lighthouse** → gestión **cross-tenant delegada SIN guests**, exactamente el requisito. B2B crearía invitados.
@@ -178,7 +178,7 @@ Opciones: *Microsoft Entra ID Protection · Microsoft Defender for Identity · S
 
 ---
 
-**3 — A + B.** Azure Lighthouse + Azure Arc.
+**3 → A + B.** Azure Lighthouse + Azure Arc.
 
 - **Lighthouse** → gestión cross-tenant sin guests de los cientos de suscripciones de las filiales.
 - **Azure Arc** → proyecta los recursos **on-prem** en el plano de control de Azure para aplicarles **Azure Policy, change tracking, inventario y patch management** (los requisitos híbridos literales).
@@ -189,7 +189,7 @@ Opciones: *Microsoft Entra ID Protection · Microsoft Defender for Identity · S
 
 ---
 
-**4 — B.** Microsoft Defender for Cloud.
+**4 → B.** Microsoft Defender for Cloud.
 
 El gancho es *"secure score scoped to the landing zone"* → el Secure Score es de Defender for Cloud.
 ❌ Los distractores (ExpressRoute, Private DNS, DDoS) resuelven otros requisitos de red de la landing zone, no el de postura de seguridad.
@@ -198,16 +198,16 @@ El gancho es *"secure score scoped to the landing zone"* → el Secure Score es 
 
 ---
 
-**5 — A.** Habilitar Password Hash Synchronization.
+**5 → A.** Habilitar Password Hash Synchronization.
 
-**PHS es la única vía de leaked credential detection.** Wingtip lo tiene deshabilitado y usa PTA, así que hay que habilitarlo — se puede como respaldo, conviviendo con PTA como método primario.
+**PHS es la única vía de leaked credential detection.** Wingtip lo tiene deshabilitado y usa PTA, así que hay que habilitarlo → se puede como respaldo, conviviendo con PTA como método primario.
 ❌ B: Federation añade infraestructura on-prem, contra el requisito de negocio. ❌ C: Smart Lockout mitiga password spray, no detecta credenciales filtradas. ❌ D: Defender for Identity detecta ataques on-prem, no credenciales filtradas en el tenant.
 
 🔑 *"Leaked credential detection" → PHS, sin excepción.*
 
 ---
 
-**6 — A.** Administrative Units.
+**6 → A.** Administrative Units.
 
 Delegan la gestión de usuarios y grupos por ámbito (unidad de negocio).
 ❌ B: los Catalogs delegan la **creación de access packages**, no la gestión de usuarios/grupos. ❌ C: Access Reviews revisan, no delegan gestión.
@@ -216,7 +216,7 @@ Delegan la gestión de usuarios y grupos por ámbito (unidad de negocio).
 
 ---
 
-**7 — B.** Private Endpoint + Private Link con Private DNS zone.
+**7 → B.** Private Endpoint + Private Link con Private DNS zone.
 
 *"Por la red troncal de Microsoft, no por endpoints públicos"* + *"minimizar exfiltración"* = **Private Link**. El tráfico va por el backbone y desaparece la ruta pública.
 ❌ A: Service Endpoint sigue usando la IP pública del servicio (aunque optimizada) y no minimiza exfiltración igual. ❌ C: VNet Integration es outbound de la app, no la comunicación privada VM→App Service.
@@ -225,7 +225,7 @@ Delegan la gestión de usuarios y grupos por ámbito (unidad de negocio).
 
 ---
 
-**8 — B.** Defender for Cloud Apps con session policies + Conditional Access App Control.
+**8 → B.** Defender for Cloud Apps con session policies + Conditional Access App Control.
 
 *"En tiempo real"* + *"controlar acceso a datos de SharePoint/Exchange Online"* = **MDA**. El control en sesión (bloquear descarga, etc.) necesita Conditional Access App Control, que enruta la sesión por el proxy inverso de MDA.
 ❌ A: las etiquetas protegen el documento, no controlan la sesión en tiempo real. ❌ C: Defender for Cloud es postura de recursos cloud, no control de sesión SaaS.
@@ -234,9 +234,9 @@ Delegan la gestión de usuarios y grupos por ámbito (unidad de negocio).
 
 ---
 
-**9 — A.** Entra Application Proxy.
+**9 → A.** Entra Application Proxy.
 
-Las apps internas son **web (HTTP/HTTPS)** y el caso pide SSO — Application Proxy las publica sin VPN.
+Las apps internas son **web (HTTP/HTTPS)** y el caso pide SSO → Application Proxy las publica sin VPN.
 ❌ B: Internet Access es filtrado de salida, no publicación de apps. ❌ D: Bastion da acceso a VMs, no publica apps web.
 ⚠️ Si el enunciado mencionara protocolos no-HTTP (SSH, RDP, SQL), la respuesta cambiaría a **Entra Private Access**.
 
@@ -244,7 +244,7 @@ Las apps internas son **web (HTTP/HTTPS)** y el caso pide SSO — Application Pr
 
 ---
 
-**10 — B.** Forced tunneling con UDR 0.0.0.0/0 hacia el Firewall del hub.
+**10 → B.** Forced tunneling con UDR 0.0.0.0/0 hacia el Firewall del hub.
 
 Topología hub-and-spoke con **inspección de egress centralizada**: cada landing zone enruta su tráfico saliente al Firewall del hub mediante una UDR por defecto.
 ❌ D: un Firewall por zona rompe la centralización y dispara el coste. ❌ C: NAT Gateway da IP de salida, no inspección.

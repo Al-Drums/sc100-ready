@@ -1,4 +1,4 @@
-# SIMULACRO SC-100 #3 — 20 preguntas
+# SIMULACRO SC-100 #3 → 20 preguntas
 
 **Tiempo objetivo: 40 minutos.**
 
@@ -11,7 +11,7 @@ Ponderación según los fallos más comunes:
 
 ---
 
-## FICHA PREVIA — Lo que no habías visto
+## FICHA PREVIA → Lo que no habías visto
 
 ### El ecosistema de Kubernetes: quién hace qué
 
@@ -266,84 +266,84 @@ Concepto que aparece con frecuencia y que conviene tener claro:
 
 ---
 
-**1 — D.** Istio.
+**1 → D.** Istio.
 🔑 **mTLS servicio-a-servicio + mínimo esfuerzo → service mesh → Istio.**
 ❌ B: Envoy es el proxy que Istio usa por debajo; sabe hacer mTLS pero exige configurarlo y orquestarlo a mano, lo contrario de "minimizar esfuerzo". Es el distractor mejor diseñado de la pregunta. ❌ C: Dapr aporta bloques de construcción (state, pub/sub), no una capa de seguridad de red completa. ❌ A: Flux es GitOps, despliega configuración.
 
-**2 — B.** Gatekeeper.
+**2 → B.** Gatekeeper.
 🔑 **"Impedir el despliegue" en Kubernetes → admission control → Gatekeeper (OPA).**
 ❌ D: Defender for Containers detecta en runtime, es decir **después** de que el pod corra.
 ⚠️ Nota: el **Azure Policy add-on para AKS** está construido sobre Gatekeeper y sería válido si el enunciado menciona gobernanza centralizada desde Azure. Si la pregunta es puramente de Kubernetes, Gatekeeper.
 
-**3 — A.** Flux.
+**3 → A.** Flux.
 🔑 **"Estado declarado en Git" + "consistencia de configuración" → GitOps → Flux.**
 La reconciliación continua (revertir cambios manuales) es exactamente la definición de GitOps.
 
-**4 — B.** Runtime threat protection en Defender for Containers.
+**4 → B.** Runtime threat protection en Defender for Containers.
 🔑 **"En tiempo de ejecución" + comportamiento malicioso → CWPP.**
 ❌ A: el vulnerability assessment analiza imágenes en busca de CVEs, es postura, no detección activa. Es el contraste CSPM/CWPP aplicado a contenedores.
 
-**5 — C.** Authorized IP Ranges.
+**5 → C.** Authorized IP Ranges.
 🔑 Feature **nativa de AKS**. No es Service Endpoint ni Private Endpoint. (Private Endpoint sería la respuesta si el enunciado pidiera un cluster **privado sin API server público**, que es otra pregunta.)
 
-**6 — C.** Azure Policy.
+**6 → C.** Azure Policy.
 🔑 **La clave está en el objeto del requisito: las apps YA DESPLEGADAS deben cumplir el MCSB.** Eso es gobernanza sobre recursos de Azure. Que el despliegue venga de Azure DevOps es contexto, no el objeto.
 ❌ A: DevOps security da visibilidad de repos y pipelines, no aplica cumplimiento sobre el recurso desplegado. ❌ B: Defender for App Service **detecta amenazas**, no aplica cumplimiento. ❌ D: las branch policies gobiernan el código, no la configuración del recurso en Azure.
 ⚠️ **Recuerda: Defender recomienda y alerta; Azure Policy aplica y bloquea.**
 
-**7 — B.** Azure Policy con efecto **Deny**.
+**7 → B.** Azure Policy con efecto **Deny**.
 🔑 **"Impedir que se creen" → Deny.** Audit solo registra el incumplimiento.
 ❌ D: las deny assignments existen pero se usan vía Blueprints/managed apps, no son el mecanismo de gobernanza de configuración.
 
-**8 — A.** DeployIfNotExists + remediation task.
+**8 → A.** DeployIfNotExists + remediation task.
 🔑 **"Sin intervención manual" + "corregir también las existentes"**. DeployIfNotExists actúa sobre lo nuevo; la **remediation task** es la que aplica a lo que ya existía. Si el enunciado menciona recursos preexistentes, la tarea de remediación tiene que aparecer.
 
-**9 — B.** DevOps security en Defender for Cloud.
+**9 → B.** DevOps security en Defender for Cloud.
 🔑 **"Visibilidad" + "repositorios y pipelines" + "junto al resto de la postura" → DevOps security.**
 Contrasta deliberadamente con la 6: aquí el objeto es el **pipeline**; allí era el **recurso desplegado**.
 
-**10 — B.** Azure Arc + Azure Policy.
+**10 → B.** Azure Arc + Azure Policy.
 🔑 **Azure Policy solo alcanza lo que está en el plano de control de ARM.** Arc es lo que proyecta EC2 y servidores on-prem dentro de ese plano.
 ❌ D: Blueprints está deprecado; casi nunca es correcto.
 
-**11 — A.** Solo Oficina 1.
+**11 → A.** Solo Oficina 1.
 Este es el razonamiento completo:
 - La política de Conditional Access exige **compliant network check**, que solo se satisface si el tráfico atraviesa Global Secure Access.
 - **Oficina 1** tiene una **remote network asignada** a la política → su tráfico entra por GSA → cumple.
 - **Oficina 2** tiene el cliente GSA desplegado, pero la **remote network asignada a la política es la de Oficina 1**. El tráfico de Oficina 2 no queda cubierto por la asignación de la política, así que no supera el compliant network check.
 🔑 La lección: **desplegar el cliente no basta si la política no está asignada a ese camino.** Hay que mirar siempre a qué está asignada la política, no solo qué se ha instalado.
 
-**12 — C.** Que el tráfico llegue a través de Global Secure Access.
+**12 → C.** Que el tráfico llegue a través de Global Secure Access.
 🔑 Es un sustituto moderno de las named locations por IP: en vez de "vienes de esta IP", comprueba "vienes por mi servicio". ❌ A: eso es device compliance, otra condición distinta de CA.
 
-**13 — B.** Internet Access con universal tenant restrictions v2.
+**13 → B.** Internet Access con universal tenant restrictions v2.
 🔑 Respuesta confirmada. Funciona porque el tráfico **sale** hacia otro tenant y GSA lo inspecciona inyectando las cabeceras de restricción, tanto en el plano de autenticación como en el de datos.
 ❌ C: cross-tenant access settings controla la colaboración **entrante y saliente de tu tenant**, no impide que un dispositivo se autentique en un tenant ajeno con cuenta personal.
 ⚠️ Ojo: algunos bancos públicos responden Private Access aquí; es incorrecto.
 
-**14 — C.** Ambos, bajo el paraguas de Global Secure Access.
+**14 → C.** Ambos, bajo el paraguas de Global Secure Access.
 No son alternativas: **Private Access = tráfico hacia recursos privados de la organización; Internet Access = tráfico hacia internet y SaaS.** Un mismo despliegue de GSA puede tener ambos perfiles activos.
 
-**15 — A.** Crear vault → habilitar inmutabilidad → bloquear inmutabilidad.
+**15 → A.** Crear vault → habilitar inmutabilidad → bloquear inmutabilidad.
 🔑 **La secuencia es siempre: crear el contenedor, activar la protección, hacerla irreversible.** No puedes bloquear lo que no has habilitado, ni habilitar sobre un vault que no existe.
 
-**16 — B.** Habilitada se puede deshabilitar; bloqueada es irreversible.
-🔑 Este es el matiz que hace correcta la secuencia de la 15. El estado *habilitado* protege pero sigue siendo reversible por un administrador — por eso, si el requisito es *"ni siquiera un administrador puede modificar la retención"*, hay que llegar hasta el **lock**.
+**16 → B.** Habilitada se puede deshabilitar; bloqueada es irreversible.
+🔑 Este es el matiz que hace correcta la secuencia de la 15. El estado *habilitado* protege pero sigue siendo reversible por un administrador → por eso, si el requisito es *"ni siquiera un administrador puede modificar la retención"*, hay que llegar hasta el **lock**.
 ⚠️ El lock es permanente de verdad: no hay marcha atrás. Por eso es el último paso.
 
-**17 — B.** MUA con Resource Guard.
+**17 → B.** MUA con Resource Guard.
 🔑 **"Aprobación de un segundo actor" / two-person rule → MUA.** La inmutabilidad protege los datos de backup; **MUA protege las operaciones**.
 Distinción útil: *inmutabilidad = no puedes borrar ni acortar retención. MUA = no puedes ejecutar operaciones críticas sin que otro apruebe.* La 15 y la 17 son complementarias, no alternativas.
 
-**18 — D.** Malware scanning en Defender for Storage.
+**18 → D.** Malware scanning en Defender for Storage.
 🔑 **"Detectar amenazas en archivos tras la subida" → malware scanning.**
 ❌ A: sensitive data threat detection identifica **datos sensibles expuestos**, no malware. Es el distractor del mismo producto, que es el patrón habitual.
 
-**19 — B.** CMK sobre el Storage Account del Data Lake subyacente.
+**19 → B.** CMK sobre el Storage Account del Data Lake subyacente.
 🔑 **El pool serverless no tiene storage propio, luego no tiene TDE.** El cifrado se aplica donde viven los datos.
 ⚠️ Contraste con **Dedicated**: ahí sí hay TDE, y la CMK de workspace **solo se configura al crear el workspace**.
 
-**20 — B.** Branch policies.
+**20 → B.** Branch policies.
 🔑 **Revisión de código antes del merge → branch policies.** Aquí el objeto sí es el pipeline, a diferencia de la 6.
 
 ---
